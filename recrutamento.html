@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Recrutamento - STAFF</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .form-container {
+      background: #161b22;
+      padding: 25px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #58a6ff;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      background: #0d1117;
+      color: #fff;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #238636;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #2ea043;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>📋 Recrutamento STAFF</h2>
+    <form id="recrutamentoForm">
+
+      <!-- Informações pessoais -->
+      <label>Nome completo:</label>
+      <input type="text" name="Nome completo" required>
+
+      <label>Idade:</label>
+      <input type="number" name="Idade" required>
+
+      <label>Nick no servidor:</label>
+      <input type="text" name="Nick" required>
+
+      <label>ID (se aplicável):</label>
+      <input type="text" name="ID">
+
+      <label>Discord:</label>
+      <input type="text" name="Discord" required>
+
+      <label>Já participou de alguma equipe STAFF antes? Se sim, qual?</label>
+      <textarea name="Experiência"></textarea>
+
+      <label>Quantas horas por dia pode ficar online?</label>
+      <input type="text" name="Disponibilidade" required>
+
+      <label>Quais dias da semana tem mais disponibilidade?</label>
+      <input type="text" name="Dias disponíveis" required>
+
+      <!-- Perguntas RP -->
+      <label>Explique com suas palavras o que significa Roleplay (RP):</label>
+      <textarea name="O que é RP?" required></textarea>
+
+      <label>O que é considerado um FAIL RP?</label>
+      <textarea name="FAIL RP" required></textarea>
+
+      <label>O que significa Power Gaming (PG)?</label>
+      <textarea name="Power Gaming" required></textarea>
+
+      <label>O que significa Meta Gaming (MG)?</label>
+      <textarea name="Meta Gaming" required></textarea>
+
+      <label>Dê um exemplo de situação Anti-RP:</label>
+      <textarea name="Anti-RP" required></textarea>
+
+      <!-- Perguntas Bíblia RP / conduta -->
+      <label>Como reagiria se um player começasse a te xingar ou desrespeitar em RP?</label>
+      <textarea name="Reação ao desrespeito" required></textarea>
+
+      <label>Como aplicaria uma punição sem abusar do poder de STAFF?</label>
+      <textarea name="Uso correto de punições" required></textarea>
+
+      <label>Se ver dois players brigando por causa de religião/política, o que faria?</label>
+      <textarea name="Conflito religião/política" required></textarea>
+
+      <label>O que faria se alguém ofendesse valores religiosos em RP?</label>
+      <textarea name="Ofensa religiosa" required></textarea>
+
+      <!-- Final -->
+      <label>Por que devemos escolher você para a equipe STAFF?</label>
+      <textarea name="Por que ser STAFF?" required></textarea>
+
+      <label>Deseja acrescentar algo mais?</label>
+      <textarea name="Extra"></textarea>
+
+      <button type="submit">Enviar Formulário</button>
+    </form>
+  </div>
+
+  <script>
+    // 🔹 Cole aqui o webhook do seu canal no Discord
+    const webhookURL = "https://canary.discord.com/api/webhooks/1416962845639442654/orsot0VVF8CrQeDv3sSlrIktFRgnU-GQQ6mhOdL_vWAay5B5mG1-XKYVhccJpAy5HilR";
+
+    document.getElementById("recrutamentoForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      let mensagem = "**📋 NOVA CANDIDATURA PARA STAFF**\n\n";
+      formData.forEach((value, key) => {
+        mensagem += `**${key}:** ${value}\n`;
+      });
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: mensagem })
+      }).then(() => {
+        alert("✅ Formulário enviado com sucesso!");
+        this.reset();
+      }).catch(() => {
+        alert("❌ Erro ao enviar o formulário!");
+      });
+    });
+  </script>
+</body>
+</html>
